@@ -3,6 +3,7 @@
 <?= $this->section('card') ?>
 <h1 class="card-title">Entrar</h1>
 
+<?= $this->include('success_list') ?>
 <?= $this->include('error_list') ?>
 
 <form action="/login" method="POST">
