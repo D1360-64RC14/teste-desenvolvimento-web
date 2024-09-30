@@ -96,6 +96,62 @@ class Auth extends BaseController
         return view('auth/forgot_password');
     }
 
+    public function postForgotPassword()
+    {
+        $data = $this->request->getPost(['email']);
+
+        $rules = [
+            'email' => 'required|valid_email',
+        ];
+
+        $messages = [
+            'email' => [
+                'required' => 'Informe um email',
+                'valid_email' => 'Informe um email válido',
+            ],
+        ];
+
+        if (! $this->validateData($data, $rules, $messages)) {
+            return redirect()->back()->withInput();
+        }
+
+        $userModel = model(UserModel::class);
+        $emailService = service('email');
+
+        $session = session();
+
+        $user = $userModel->where('email', $data['email'])->first();
+
+        if (! $user) {
+            return redirect()->back()->withInput()->with('errors', [
+                'Email não encontrado',
+            ]);
+        }
+
+        $emailService->setTo($user['email']);
+        $emailService->setSubject('Recuperação de senha');
+        $emailService->setMessage('This is a test');
+
+        if (! $emailService->send()) {
+            return redirect()->back()->withInput()->with('errors', [
+                'Erro ao enviar email',
+            ]);
+        }
+
+        $session->set('recovering-email', $user['email']);
+
+        return redirect()->to('/recover-password');
+    }
+
+    public function recoverPassword()
+    {
+        helper('form');
+
+        return view('auth/recover_password', [
+            'email' => session()->get('recovering-email'),
+        ]);
+    }
+
     public function logout()
     {
         session()->destroy();
