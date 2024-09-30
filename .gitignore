@@ -44,7 +44,7 @@ $RECYCLE.BIN/
 .env
 .vagrant
 Vagrantfile
-secrets
+secrets/
 
 #-------------------------
 # Temporary Files
