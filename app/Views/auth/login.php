@@ -1,7 +1,7 @@
 <?= $this->extend('auth/auth_layout') ?>
 
 <?= $this->section('card') ?>
-<h1 class="card-title">Entrar</h1>
+<h1 class="card-title h2 mb-3">Entrar</h1>
 
 <?= $this->include('success_list') ?>
 <?= $this->include('error_list') ?>

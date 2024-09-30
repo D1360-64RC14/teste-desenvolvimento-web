@@ -1,7 +1,7 @@
 <?= $this->extend('auth/auth_layout') ?>
 
 <?= $this->section('card') ?>
-<h1 class="card-title">Recuperar Senha</h1>
+<h1 class="card-title h2 mb-3">Recuperar Senha</h1>
 
 <?= $this->include('error_list') ?>
 
