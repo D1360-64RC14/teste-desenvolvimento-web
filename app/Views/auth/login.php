@@ -9,12 +9,12 @@
     <div class="row g-3">
         <div>
             <label class="form-label" for="loginEmail">Email</label>
-            <input class="form-control" type="email" name="email" id="loginEmail" minlength="3" value="<?= set_value('email') ?>" autofocus>
+            <input class="form-control" type="email" name="email" id="loginEmail" minlength="3" value="<?= set_value('email') ?>" required autofocus>
         </div>
 
         <div>
             <label class="form-label" for="loginPassword">Senha</label>
-            <input class="form-control" type="password" name="password" id="loginPassword" minlength="8">
+            <input class="form-control" type="password" name="password" id="loginPassword" minlength="8" required>
         </div>
         <div class="d-flex justify-content-between">
             <a class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="/forgot-password">Esqueci minha senha</a>

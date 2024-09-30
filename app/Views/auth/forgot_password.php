@@ -9,7 +9,7 @@
     <div class="row g-3">
         <div>
             <label class="form-label" for="forgottenEmail">Email</label>
-            <input class="form-control" type="email" name="email" id="forgottenEmail" minlength="3" value="<?= set_value('email') ?>" autofocus>
+            <input class="form-control" type="email" name="email" id="forgottenEmail" minlength="3" value="<?= set_value('email') ?>" required autofocus>
         </div>
 
         <div>

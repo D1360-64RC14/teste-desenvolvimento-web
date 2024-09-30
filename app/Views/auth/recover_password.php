@@ -14,17 +14,17 @@
 
         <div>
             <label class="form-label" for="recoverCode">Código de Recuperação</label>
-            <input class="form-control" type="text" name="code" id="recoverCode" minlength="6" maxlength="6" value="<?= set_value('code') ?>" autofocus>
+            <input class="form-control" type="text" name="code" id="recoverCode" minlength="6" maxlength="6" value="<?= set_value('code') ?>" required autofocus>
         </div>
 
         <div>
             <label class="form-label" for="recoverPassword">Nova Senha</label>
-            <input class="form-control" type="password" name="password" id="recoverPassword" minlength="8">
+            <input class="form-control" type="password" name="password" id="recoverPassword" minlength="8" required>
         </div>
 
         <div>
             <label class="form-label" for="recoverVerifyPassword">Verificar Senha</label>
-            <input class="form-control" type="password" name="verifyPassword" id="recoverVerifyPassword" minlength="8">
+            <input class="form-control" type="password" name="verifyPassword" id="recoverVerifyPassword" minlength="8" required>
         </div>
 
         <div>
