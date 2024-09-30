@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\User;
+use App\Models\UserModel;
 
 class Auth extends BaseController
 {
@@ -38,7 +38,7 @@ class Auth extends BaseController
             return redirect()->back()->withInput();
         }
 
-        $userModel = model(User::class);
+        $userModel = model(UserModel::class);
         $session = session();
 
         $user = $userModel->where('email', $data['email'])->first();
@@ -69,7 +69,7 @@ class Auth extends BaseController
     {
         $data = $this->request->getPost(['name', 'email', 'password', 'verifyPassword']);
 
-        $userModel = model(User::class);
+        $userModel = model(UserModel::class);
 
         $userModel->setValidationRule('verifyPassword', 'required|matches[password]');
         $userModel->setValidationMessage('verifyPassword', [
