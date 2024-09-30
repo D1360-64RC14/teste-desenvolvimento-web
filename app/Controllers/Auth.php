@@ -14,6 +14,50 @@ class Auth extends BaseController
         return view('auth/login');
     }
 
+    public function postLogin()
+    {
+        $data = $this->request->getPost(['email', 'password']);
+
+        $rules = [
+            'email' => 'required|valid_email',
+            'password' => 'required|min_length[8]',
+        ];
+
+        $messages = [
+            'email' => [
+                'required' => 'Informe seu email',
+                'valid_email' => 'Informe um email válido',
+            ],
+            'password' => [
+                'required' => 'Informe sua senha',
+                'min_length' => 'Sua senha deve ter pelo menos 8 caracteres',
+            ]
+        ];
+
+        if (! $this->validateData($data, $rules, $messages)) {
+            return redirect()->back()->withInput();
+        }
+
+        $userModel = model(User::class);
+        $session = session();
+
+        $user = $userModel->where('email', $data['email'])->first();
+
+        if (! $user || ! password_verify($data['password'], $user['password'])) {
+            return redirect()->back()->withInput()->with('errors', [
+                'Usuário ou senha inválidos',
+            ]);
+        }
+
+        $session->set('user', [
+            'id' => $user['id'],
+            'name' => $user['name'],
+            'email' => $user['email'],
+        ]);
+
+        return redirect()->to('/');
+    }
+
     public function signin()
     {
         helper('form');

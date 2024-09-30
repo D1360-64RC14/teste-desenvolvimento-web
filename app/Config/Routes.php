@@ -1,6 +1,7 @@
 <?php
 
 use App\Controllers\Auth;
+use App\Controllers\Home;
 use CodeIgniter\Router\RouteCollection;
 
 /**
@@ -8,10 +9,11 @@ use CodeIgniter\Router\RouteCollection;
  */
 
 $routes->get('/login', [Auth::class, 'login']);
+$routes->post('/login', [Auth::class, 'postLogin']);
 
 $routes->get('/signin', [Auth::class, 'signin']);
 $routes->post('/signin', [Auth::class, 'postSignin']);
 
 $routes->get('/forgot-password', [Auth::class, 'forgotPassword']);
 
-$routes->get('/', 'Home::index');
+$routes->get('/', [Home::class, 'index']);
