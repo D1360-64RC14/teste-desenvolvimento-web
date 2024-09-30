@@ -8,8 +8,13 @@
 
     <div class="row g-3">
         <div>
+            <label class="form-label" for="signinName">Nome</label>
+            <input class="form-control" type="text" name="name" id="signinName" minlength="3" value="<?= set_value('name') ?>" autofocus>
+        </div>
+
+        <div>
             <label class="form-label" for="signinEmail">Email</label>
-            <input class="form-control" type="email" name="email" id="signinEmail" minlength="3" value="<?= set_value('email') ?>" autofocus>
+            <input class="form-control" type="email" name="email" id="signinEmail" minlength="3" value="<?= set_value('email') ?>">
         </div>
 
         <div>
