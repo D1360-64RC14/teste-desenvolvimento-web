@@ -1,0 +1,34 @@
+services:
+  db:
+    image: mariadb
+    ports:
+      - 3306:3306
+    volumes:
+      - db_data:/var/lib/mysql
+    secrets:
+      - mariadb_root
+    environment:
+      MARIADB_ROOT_PASSWORD_FILE: /run/secrets/mariadb_root
+      MARIADB_USER: development
+      MARIADB_PASSWORD: development
+      MARIADB_DATABASE: ci4
+
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - 3000:80
+    depends_on:
+      - db
+    secrets:
+      - mariadb_root
+    environment:
+      PMA_PASSWORD_FILE: /run/secrets/mariadb_root
+      PMA_USER: root
+      PMA_HOST: db
+
+secrets:
+  mariadb_root:
+    file: ./secrets/mariadb_root
+
+volumes:
+  db_data:
