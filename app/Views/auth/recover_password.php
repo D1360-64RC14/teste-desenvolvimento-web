@@ -11,7 +11,7 @@
     <div class="row g-3">
         <div>
             <label class="form-label" for="recoverEmail">Email</label>
-            <input class="form-control" type="email" name="email" id="recoverEmail" minlength="3" value="<?= esc($email) ?>" disabled>
+            <input class="form-control" type="email" name="email" id="recoverEmail" minlength="3" value="<?= set_value('email', $email) ?>" disabled>
         </div>
 
         <div>
