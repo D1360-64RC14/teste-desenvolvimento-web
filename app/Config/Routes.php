@@ -14,6 +14,7 @@ $routes->post('/login', [Auth::class, 'postLogin']);
 $routes->get('/signin', [Auth::class, 'signin']);
 $routes->post('/signin', [Auth::class, 'postSignin']);
 
+$routes->get('/logout', [Auth::class, 'logout']);
 $routes->get('/forgot-password', [Auth::class, 'forgotPassword']);
 
 $routes->get('/', [Home::class, 'index']);
