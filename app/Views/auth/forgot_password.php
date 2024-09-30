@@ -3,6 +3,8 @@
 <?= $this->section('card') ?>
 <h1 class="card-title">Recuperar Senha</h1>
 
+<?= $this->include('error_list') ?>
+
 <form action="/forgot-password" method="POST">
     <?= csrf_field() ?>
 

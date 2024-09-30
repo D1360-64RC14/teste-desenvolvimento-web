@@ -3,6 +3,8 @@
 <?= $this->section('card') ?>
 <h1 class="card-title">Criar Conta</h1>
 
+<?= $this->include('error_list') ?>
+
 <form action="/signin" method="POST">
     <?= csrf_field() ?>
 
