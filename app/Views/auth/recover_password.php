@@ -28,7 +28,7 @@
         </div>
 
         <div>
-            <button class="btn btn-primary w-100" type="submit">Enviar Código de Recuperação</button>
+            <button class="btn btn-primary w-100" type="submit">Redefinir Senha</button>
         </div>
     </div>
 </form>
