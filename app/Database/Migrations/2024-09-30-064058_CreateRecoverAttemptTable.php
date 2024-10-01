@@ -18,18 +18,26 @@ class CreateRecoverAttemptTable extends Migration
             'user_id' => [
                 'type' => 'INT',
                 'constraint' => 11,
+                'unsigned' => true,
+                'null' => false
             ],
             'code' => [
                 'type' => 'CHAR',
-                'constraint' => 6
+                'constraint' => 6,
+                'null' => false
             ],
             'ip_address' => [
                 'type' => 'VARCHAR',
-                'constraint' => 45
+                'constraint' => 45,
+                'null' => false
             ],
             'created_at' => [
                 'type' => 'DATETIME',
                 'null' => false
+            ],
+            'deleted_at' => [
+                'type' => 'DATETIME',
+                'null' => true
             ],
         ]);
         $this->forge->addKey('id', true);
