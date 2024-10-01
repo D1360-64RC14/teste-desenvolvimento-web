@@ -23,6 +23,10 @@ class CreateRecoverCodeTable extends Migration
                 'type' => 'CHAR',
                 'constraint' => 6
             ],
+            'expired_at' => [
+                'type' => 'DATETIME',
+                'null' => false
+            ],
             'created_at' => [
                 'type' => 'DATETIME',
                 'null' => false

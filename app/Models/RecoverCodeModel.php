@@ -15,6 +15,7 @@ class RecoverCodeModel extends Model
     protected $allowedFields    = [
         'user_id',
         'code',
+        'expired_at',
     ];
 
     protected bool $allowEmptyInserts = false;
