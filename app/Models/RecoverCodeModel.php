@@ -38,7 +38,7 @@ class RecoverCodeModel extends Model
 
     // Callbacks
     protected $allowCallbacks = true;
-    protected $beforeInsert   = [];
+    protected $beforeInsert   = ['generateRandomCode'];
     protected $afterInsert    = [];
     protected $beforeUpdate   = [];
     protected $afterUpdate    = [];
@@ -46,4 +46,13 @@ class RecoverCodeModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function generateRandomCode(array $data)
+    {
+        if (! isset($data['data']['code'])) {
+            $data['data']['code'] = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
+        }
+
+        return $data;
+    }
 }
