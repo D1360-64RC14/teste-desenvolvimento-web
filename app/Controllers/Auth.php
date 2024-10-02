@@ -3,7 +3,10 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\RecoverAttemptModel;
+use App\Models\RecoverCodeModel;
 use App\Models\UserModel;
+use CodeIgniter\I18n\Time;
 
 class Auth extends BaseController
 {
@@ -116,6 +119,7 @@ class Auth extends BaseController
         }
 
         $userModel = model(UserModel::class);
+        $recoverCodeModel = model(RecoverCodeModel::class);
         $emailService = service('email');
 
         $session = session();
@@ -128,13 +132,23 @@ class Auth extends BaseController
             ]);
         }
 
+        $lastCode = $recoverCodeModel->where('user_id', $user['id'])->orderBy('id', 'DESC')->first();
+
+        if (! $lastCode || new Time($lastCode['expired_at']) < Time::now()) {
+            $codeId = $recoverCodeModel->insert([
+                'user_id' => $user['id'],
+            ]);
+
+            $lastCode = $recoverCodeModel->find($codeId);
+        }
+
         $emailService->setTo($user['email']);
         $emailService->setSubject('Recuperação de senha');
-        $emailService->setMessage('This is a test');
+        $emailService->setMessage('Aqui está o código para recuperar sua senha: ' . $lastCode['code']);
 
         if (! $emailService->send()) {
             return redirect()->back()->withInput()->with('errors', [
-                'Erro ao enviar email',
+                'Oops. Não foi possível lhe enviar o email de recuperação de senha',
             ]);
         }
 
@@ -151,6 +165,7 @@ class Auth extends BaseController
             'email' => session()->get('recovering-email'),
         ]);
     }
+
 
     public function logout()
     {

@@ -39,7 +39,7 @@ class RecoverCodeModel extends Model
 
     // Callbacks
     protected $allowCallbacks = true;
-    protected $beforeInsert   = ['generateRandomCode'];
+    protected $beforeInsert   = ['generateRandomCode', 'setExpirationDate'];
     protected $afterInsert    = [];
     protected $beforeUpdate   = [];
     protected $afterUpdate    = [];
@@ -52,6 +52,15 @@ class RecoverCodeModel extends Model
     {
         if (! isset($data['data']['code'])) {
             $data['data']['code'] = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
+        }
+
+        return $data;
+    }
+
+    public function setExpirationDate(array $data)
+    {
+        if (! isset($data['data']['expired_at'])) {
+            $data['data']['expired_at'] = date('Y-m-d H:i:s', strtotime('+30 min'));
         }
 
         return $data;
