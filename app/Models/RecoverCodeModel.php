@@ -60,7 +60,7 @@ class RecoverCodeModel extends Model
     public function setExpirationDate(array $data)
     {
         if (! isset($data['data']['expired_at'])) {
-            $data['data']['expired_at'] = date('Y-m-d H:i:s', strtotime('+30 min'));
+            $data['data']['expired_at'] = date('Y-m-d H:i:s', strtotime(env('app.user.recovery.codeExpiration', '+30 min')));
         }
 
         return $data;
