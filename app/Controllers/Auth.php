@@ -154,6 +154,69 @@ class Auth extends BaseController
         ]);
     }
 
+    public function postRecoverPassword()
+    {
+        $data = $this->request->getPost(['email', 'code', 'password', 'verifyPassword']);
+
+        $rules = [
+            'email' => 'required|valid_email',
+            'code' => 'required',
+            'password' => 'required|min_length[8]',
+            'verifyPassword' => 'required|matches[password]',
+        ];
+
+        $messages = [
+            'email' => [
+                'required' => 'O email deve ser informado',
+                'valid_email' => 'Informe um email válido',
+            ],
+            'code' => [
+                'required' => 'Informe o código',
+            ],
+            'password' => [
+                'required' => 'Informe sua senha',
+                'min_length' => 'Sua senha deve ter pelo menos 8 caracteres',
+            ],
+            'verifyPassword' => [
+                'required' => 'Confirme sua senha',
+                'matches' => 'As senhas devem ser iguais',
+            ],
+        ];
+
+        if (! $this->validateData($data, $rules, $messages)) {
+            return redirect()->back()->withInput();
+        }
+
+        $userModel = model(UserModel::class);
+
+        /** @var PasswordRecoveryService */
+        $passwordRecoveryService = service('passwordRecovery');
+
+        $session = session();
+
+        $user = $userModel->where('email', $data['email'])->first();
+
+        if (! $user) {
+            return redirect()->back()->withInput()->with('errors', [
+                'Email não encontrado',
+            ]);
+        }
+
+        if (! $passwordRecoveryService->checkRecoveryCode($user, $data['code'])) {
+            return redirect()->back()->withInput()->with('errors', [
+                'Código inválido',
+            ]);
+        }
+
+        $user['password'] = $data['password'];
+        $userModel->save($user);
+
+        $session->remove('recovering-email');
+
+        return redirect()->to('/login')->with('successes', [
+            'Senha alterada com sucesso! Por favor, realize o login',
+        ]);
+    }
 
     public function logout()
     {
