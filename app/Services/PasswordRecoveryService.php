@@ -78,10 +78,10 @@ class PasswordRecoveryService extends BaseService
         return $matches > 0;
     }
 
-    private function createCodeFor(int $user_id): array|null
+    private function createCodeFor(int $userID): array|null
     {
         $codeId = $this->recoverCodeModel->insert([
-            'user_id' => $user_id,
+            'user_id' => $userID,
         ]);
 
         return $this->recoverCodeModel->find($codeId);
