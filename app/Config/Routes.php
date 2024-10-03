@@ -20,5 +20,6 @@ $routes->get('/forgot-password', [Auth::class, 'forgotPassword']);
 $routes->post('/forgot-password', [Auth::class, 'postForgotPassword']);
 
 $routes->get('/recover-password', [Auth::class, 'recoverPassword']);
+$routes->post('/recover-password', [Auth::class, 'postRecoverPassword']);
 
 $routes->get('/', [Home::class, 'index']);
