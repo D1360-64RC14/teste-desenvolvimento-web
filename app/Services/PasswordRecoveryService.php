@@ -45,11 +45,12 @@ class PasswordRecoveryService extends BaseService
         return $this->emailService->send();
     }
 
-    public function checkRecoveryCode(array $user, string $code): bool
+    public function checkRecoveryCode(array $user, string $code, string $ipAddress): bool
     {
         $this->recoverAttemptModel->insert([
             'user_id' => $user['id'],
             'code' => $code,
+            'ip_address' => $ipAddress,
         ]);
 
         $lastCode = $this->recoverCodeModel->where('user_id', $user['id'])->orderBy('id', 'DESC')->first();

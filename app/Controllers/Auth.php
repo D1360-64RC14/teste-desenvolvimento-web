@@ -202,7 +202,7 @@ class Auth extends BaseController
             ]);
         }
 
-        if (! $passwordRecoveryService->checkRecoveryCode($user, $data['code'])) {
+        if (! $passwordRecoveryService->checkRecoveryCode($user, $data['code'], $this->request->getIPAddress())) {
             return redirect()->back()->withInput()->with('errors', [
                 'Código inválido',
             ]);
