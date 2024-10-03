@@ -39,7 +39,7 @@ class Auth extends BaseController
         ];
 
         if (! $this->validateData($data, $rules, $messages)) {
-            return redirect()->back()->withInput();
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
         $userModel = model(UserModel::class);
@@ -184,7 +184,7 @@ class Auth extends BaseController
         ];
 
         if (! $this->validateData($data, $rules, $messages)) {
-            return redirect()->back()->withInput();
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
         $userModel = model(UserModel::class);
