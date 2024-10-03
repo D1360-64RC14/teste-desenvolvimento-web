@@ -53,7 +53,10 @@ class PasswordRecoveryService extends BaseService
             'ip_address' => $ipAddress,
         ]);
 
-        $lastCode = $this->recoverCodeModel->where('user_id', $user['id'])->orderBy('id', 'DESC')->first();
+        $lastCode = $this->recoverCodeModel
+            ->where('user_id', $user['id'])
+            ->orderBy('id', 'DESC')
+            ->first();
 
         $userAttempts = $this->recoverAttemptModel->where([
             'user_id' => $user['id'],
@@ -61,13 +64,18 @@ class PasswordRecoveryService extends BaseService
             'created_at <=' => $lastCode['expired_at'],
         ]);
 
-        $failedAttempts = $userAttempts->count();
+        $failedAttempts = $userAttempts
+            ->countAllResults();
 
         if ($failedAttempts >= $this->maxAttempts) {
             return false;
         }
 
-        return $userAttempts->where('code', $code)->count() > 0;
+        $matches = $userAttempts
+            ->where('code', $lastCode['code'])
+            ->countAllResults();
+
+        return $matches > 0;
     }
 
     private function createCodeFor(int $user_id): array|null
