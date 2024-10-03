@@ -11,12 +11,12 @@
     <div class="row g-3">
         <div>
             <label class="form-label" for="recoverEmail">Email</label>
-            <input class="form-control" type="email" name="email" id="recoverEmail" minlength="3" value="<?= set_value('email', $email) ?>" disabled>
+            <input class="form-control" type="email" name="email" id="recoverEmail" minlength="3" value="<?= $email ?>" readonly>
         </div>
 
         <div>
             <label class="form-label" for="recoverCode">Código de Recuperação</label>
-            <input class="form-control" type="text" name="code" id="recoverCode" minlength="6" maxlength="6" value="<?= set_value('code') ?>" required autofocus>
+            <input class="form-control" type="text" name="code" id="recoverCode" minlength="6" maxlength="6" value="" required autofocus>
         </div>
 
         <div>
