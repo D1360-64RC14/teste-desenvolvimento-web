@@ -77,8 +77,13 @@ class PasswordRecoveryService extends BaseService
         $matches = $userAttempts
             ->where('code', $lastCode['code'])
             ->countAllResults();
+        $isCodeRight = $matches > 0;
 
-        return $matches > 0;
+        if ($isCodeRight) {
+            $this->recoverCodeModel->delete($lastCode['id']);
+        }
+
+        return $isCodeRight;
     }
 
     private function createCodeFor(int $userID): array|null
