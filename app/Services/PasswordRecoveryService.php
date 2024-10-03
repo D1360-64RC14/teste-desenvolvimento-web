@@ -28,7 +28,10 @@ class PasswordRecoveryService extends BaseService
 
     public function sendRecoveryEmail(array $user): bool
     {
-        $lastCode = $this->recoverCodeModel->where('user_id', $user['id'])->orderBy('id', 'DESC')->first();
+        $lastCode = $this->recoverCodeModel
+            ->where('user_id', $user['id'])
+            ->orderBy('id', 'DESC')
+            ->first();
 
         if (! $lastCode || new Time($lastCode['expired_at']) < Time::now()) {
             $lastCode = $this->createCodeFor($user['id']);
@@ -80,10 +83,10 @@ class PasswordRecoveryService extends BaseService
 
     private function createCodeFor(int $userID): array|null
     {
-        $codeId = $this->recoverCodeModel->insert([
+        $codeID = $this->recoverCodeModel->insert([
             'user_id' => $userID,
         ]);
 
-        return $this->recoverCodeModel->find($codeId);
+        return $this->recoverCodeModel->find($codeID);
     }
 }
