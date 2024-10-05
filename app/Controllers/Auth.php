@@ -47,7 +47,7 @@ class Auth extends BaseController
 
         $user = $userModel->where('email', $data['email'])->first();
 
-        if (! $user || ! password_verify($data['password'], $user['password'])) {
+        if (! $user || ! UserModel::verifyPassword($user, $data['password'])) {
             return redirect()->back()->withInput()->with('errors', [
                 'Usuário ou senha inválidos',
             ]);
@@ -73,19 +73,35 @@ class Auth extends BaseController
     {
         $data = $this->request->getPost(['name', 'email', 'password', 'verifyPassword']);
 
+        $rules = [
+            'verifyPassword' => 'required|matches[password]',
+            'email' => 'is_unique[user.email]',
+            'password' => 'required|min_length[8]|max_length[245]',
+        ];
+
+        $messages = [
+            'verifyPassword' => [
+                'required' => 'Confirme sua senha',
+                'matches' => 'As senhas devem ser iguais',
+            ],
+            'email' => [
+                'is_unique' => 'O email informado já está em uso',
+            ],
+            'password' => [
+                'required' => 'Informe sua senha',
+                'min_length' => 'A senha deve ter pelo menos 8 caracteres',
+                'max_length' => 'A senha deve ter no máximo 245 caracteres',
+            ],
+        ];
+
         $userModel = model(UserModel::class);
 
-        $userModel->setValidationRule('verifyPassword', 'required|matches[password]');
-        $userModel->setValidationMessage('verifyPassword', [
-            'required' => 'Confirme sua senha',
-            'matches' => 'As senhas devem ser iguais',
-        ]);
+        if (! $this->validateData($data, $rules, $messages)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
 
-        $valid = $userModel->save($data);
-
-        if (! $valid) {
-            $errors = $userModel->errors();
-            return redirect()->back()->withInput()->with('errors', $errors);
+        if (! $userModel->save($data)) {
+            return redirect()->back()->withInput()->with('errors', $userModel->errors());
         }
 
         return redirect()->to('/login')->with('successes', [
@@ -208,8 +224,11 @@ class Auth extends BaseController
             ]);
         }
 
-        $user['password'] = $data['password'];
-        $userModel->save($user);
+        $user['password'] = UserModel::hashPassword($data['password']);
+
+        if (! $userModel->save($user)) {
+            return redirect()->back()->withInput()->with('errors', $userModel->errors());
+        }
 
         $session->remove('recovering-email');
 

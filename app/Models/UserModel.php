@@ -34,8 +34,7 @@ class UserModel extends Model
     // Validation
     protected $validationRules = [
         'name' => 'required|min_length[3]|max_length[245]',
-        'email' => 'required|max_length[245]|valid_email|is_unique[user.email]',
-        'password' => 'required|min_length[8]|max_length[245]'
+        'email' => 'required|max_length[245]|valid_email',
     ];
     protected $validationMessages = [
         'name' => [
@@ -47,35 +46,29 @@ class UserModel extends Model
             'required' => 'Informe seu email',
             'max_length' => 'O email deve ter no máximo 245 caracteres',
             'valid_email' => 'Informe um email válido',
-            'is_unique' => 'O email informado já está em uso',
-        ],
-        'password' => [
-            'required' => 'Informe sua senha',
-            'min_length' => 'A senha deve ter pelo menos 8 caracteres',
-            'max_length' => 'A senha deve ter no máximo 245 caracteres',
         ],
     ];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
 
     // Callbacks
-    protected $allowCallbacks = true;
-    protected $beforeInsert   = ['hashPassword'];
+    protected $allowCallbacks = false;
+    protected $beforeInsert   = [];
     protected $afterInsert    = [];
-    protected $beforeUpdate   = ['hashPassword'];
+    protected $beforeUpdate   = [];
     protected $afterUpdate    = [];
     protected $beforeFind     = [];
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    protected function hashPassword(array $data): array
+    public static function hashPassword(string $password): string
     {
-        if (! isset($data['data']['password'])) {
-            return $data;
-        }
+        return password_hash($password, PASSWORD_BCRYPT);
+    }
 
-        $data['data']['password'] = password_hash($data['data']['password'], PASSWORD_BCRYPT);
-        return $data;
+    public static function verifyPassword(array $user, string $password): bool
+    {
+        return password_verify($password, $user['password']);
     }
 }
