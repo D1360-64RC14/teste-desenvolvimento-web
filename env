@@ -25,6 +25,8 @@
 # app_baseURL = ''
 # app.forceGlobalSecureRequests = false
 # app.CSPEnabled = false
+# app.user.recovery.maxAttempts = 20
+# app.user.recovery.codeExpiration = '+30 min'
 
 #--------------------------------------------------------------------
 # DATABASE
@@ -61,6 +63,18 @@
 
 # session.driver = 'CodeIgniter\Session\Handlers\FileHandler'
 # session.savePath = null
+
+#--------------------------------------------------------------------
+# MAIL
+#--------------------------------------------------------------------
+
+# mail.sender.fromEmail = hostmaster@postage.com
+# mail.sender.fromName = 'HostMaster'
+# mail.protocol = smtp
+# mail.smtp.host =
+# mail.smtp.user =
+# mail.smtp.pass =
+# mail.smtp.port = 587
 
 #--------------------------------------------------------------------
 # LOGGER
