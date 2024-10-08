@@ -14,6 +14,21 @@ class Home extends BaseController
             return redirect()->to('/login');
         }
 
-        return view('home/index');
+        $posts = [
+            [
+                'id' => 1,
+                'user' => 'admin',
+                'email' => '7w1tB@example.com',
+                'message' => 'Hello, World!',
+            ],
+            [
+                'id' => 2,
+                'user' => 'admin',
+                'email' => '7w1tB@example.com',
+                'message' => 'Hello, World!',
+            ],
+        ];
+
+        return view('home/index', compact('posts'));
     }
 }
