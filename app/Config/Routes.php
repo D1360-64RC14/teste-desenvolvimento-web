@@ -2,6 +2,7 @@
 
 use App\Controllers\Auth;
 use App\Controllers\Home;
+use App\Controllers\Post;
 use CodeIgniter\Router\RouteCollection;
 
 /**
@@ -23,3 +24,8 @@ $routes->get('/recover-password', [Auth::class, 'recoverPassword']);
 $routes->post('/recover-password', [Auth::class, 'postRecoverPassword']);
 
 $routes->get('/', [Home::class, 'index']);
+
+$routes->get('/post', [Post::class, 'index']);
+$routes->post('/post', [Post::class, 'postPost']);
+$routes->put('/post/:id', [Post::class, 'putPost']);
+$routes->delete('/post/:id', [Post::class, 'deletePost']);
