@@ -26,6 +26,7 @@ $routes->post('/recover-password', [Auth::class, 'postRecoverPassword']);
 $routes->get('/', [Home::class, 'index']);
 
 $routes->get('/post', [Post::class, 'index']);
+$routes->get('/post/(:num)', [Post::class, 'viewPost']);
 $routes->post('/post', [Post::class, 'postPost']);
-$routes->put('/post/:id', [Post::class, 'putPost']);
-$routes->delete('/post/:id', [Post::class, 'deletePost']);
+$routes->put('/post/(:num)', [Post::class, 'putPost']);
+$routes->delete('/post/(:num)', [Post::class, 'deletePost']);
