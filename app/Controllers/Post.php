@@ -86,6 +86,7 @@ class Post extends BaseController
         }
 
         $data = $this->request->getPost(['title', 'body', 'imageUrl']);
+        $data['image_url'] = $data['imageUrl'];
 
         $user = $session->get('user');
         $postModel = model(PostModel::class);

@@ -36,6 +36,7 @@ class PostModel extends Model
     protected $validationRules      = [
         'title' => 'required',
         'body' => 'required',
+        'image_url' => 'permit_empty',
         'user_id' => 'required',
     ];
     protected $validationMessages   = [

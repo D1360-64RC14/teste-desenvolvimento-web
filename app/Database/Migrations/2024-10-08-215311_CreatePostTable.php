@@ -28,6 +28,11 @@ class CreatePostTable extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => 245,
             ],
+            'image_url' => [
+                'type' => 'VARCHAR',
+                'constraint' => 245,
+                'null' => true
+            ],
             'created_at' => [
                 'type' => 'DATETIME',
                 'null' => false
