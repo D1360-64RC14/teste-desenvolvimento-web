@@ -13,6 +13,10 @@
                 </span>
             </h4>
             <p><?= esc($post['body']) ?></p>
+
+            <div class="text-center">
+                <img class="img-thumbnail" src="<?= esc($post['image_url'], 'attr') ?>">
+            </div>
         </div>
     </div>
 </div>
