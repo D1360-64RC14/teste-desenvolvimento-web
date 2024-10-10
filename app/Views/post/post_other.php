@@ -9,7 +9,7 @@
             <h4 class="d-flex align-items-center">
                 <span class="h5 flex-grow-1"><?= esc($post['title']) ?></span>
                 <span class="h6 text-secondary ms-auto">
-                    <?= esc($post['title']) ?>
+                    <?= esc($user['email']) ?>
                 </span>
             </h4>
             <p><?= esc($post['body']) ?></p>
