@@ -9,13 +9,13 @@ class Post extends BaseController
 {
     public function index()
     {
-        helper('form');
-
         $session = session();
 
         if (! $session->has('user')) {
             return redirect()->to('/login');
         }
+
+        helper('form');
 
         return view('post/index', [
             'post' => [
@@ -39,7 +39,6 @@ class Post extends BaseController
 
         $postModel = model(PostModel::class);
         $user = $session->get('user');
-
         $post = $postModel->find($id);
 
         if (! $post) {
@@ -55,13 +54,13 @@ class Post extends BaseController
 
     public function editPost(int $id)
     {
-        helper('form');
-
         $session = session();
 
         if (! $session->has('user')) {
             return redirect()->to('/login');
         }
+
+        helper('form');
 
         $postModel = model(PostModel::class);
         $user = $session->get('user');
