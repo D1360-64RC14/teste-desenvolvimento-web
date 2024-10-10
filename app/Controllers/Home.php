@@ -23,6 +23,7 @@ class Home extends BaseController
                 p.id AS id,
                 p.title AS title,
                 p.body AS body,
+                p.image_url AS image_url,
                 p.user_id AS user_id,
                 u.email AS email
             ')
