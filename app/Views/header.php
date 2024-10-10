@@ -5,7 +5,7 @@
                 <i class="bi bi-plus-circle"></i>
             </a>
             <span>
-                Olá, <?= session('user')['name'] ?>!
+                Olá, <?= esc(session('user')['name']) ?>!
             </span>
             <a href="/logout" class="btn btn-sm btn-danger" title="Sair">
                 <i class="bi bi-box-arrow-right"></i>
