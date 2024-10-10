@@ -38,22 +38,22 @@
                         <div>
                             <textarea
                                 class="w-100 form-control"
-                                name="content"
+                                name="body"
                                 id="postContent"
                                 placeholder="Conteúdo"
-                                style="min-height: 25vh;"><?= set_value('title', $post['body']) ?></textarea>
+                                style="min-height: 25vh;"><?= set_value('body', $post['body']) ?></textarea>
                         </div>
                         <div>
                             <input
                                 class="form-control"
                                 type="url"
-                                name="image"
+                                name="imageUrl"
                                 id="postImage"
                                 placeholder="https://imagem.com"
                                 minlength="3"
                                 maxlength="245"
                                 oninput="loadImagePreview(this.value)"
-                                value="<?= set_value('title', $post['imageUrl']) ?>">
+                                value="<?= set_value('imageUrl', $post['imageUrl']) ?>">
                             <div class="invalid-feedback">
                                 Link para a imagem inválido
                             </div>
