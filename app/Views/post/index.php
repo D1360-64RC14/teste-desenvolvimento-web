@@ -15,7 +15,6 @@
                 <form
                     action="<?= $editing ? esc('/post/' . $post['id'], 'attr') : '/post' ?>"
                     method="post">
-
                     <?= csrf_field() ?>
 
                     <?php if ($editing) : ?>
