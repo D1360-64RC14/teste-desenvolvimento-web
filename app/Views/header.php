@@ -6,7 +6,7 @@
                     <i class="bi bi-chevron-left"></i>
                 </a>
             <?php elseif ($action === 'createPost') : ?>
-                <a href="/post" class="btn btn-sm btn-outline-primary" title="Postar algo...">
+                <a href="/post" class="btn btn-sm btn-primary" title="Postar algo...">
                     <i class="bi bi-plus-circle"></i>
                 </a>
             <?php endif; ?>
