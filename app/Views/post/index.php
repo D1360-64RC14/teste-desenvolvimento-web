@@ -89,6 +89,8 @@
         validImage();
     });
 
+    postImage.dispatchEvent(new Event("input"));
+
     /** @param {string} url */
     function loadImagePreview(url) {
         validImage();
