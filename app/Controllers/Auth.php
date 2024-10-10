@@ -99,6 +99,8 @@ class Auth extends BaseController
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
+        $data['password'] = UserModel::hashPassword($data['password']);
+
         if (! $userModel->save($data)) {
             return redirect()->back()->withInput()->with('errors', $userModel->errors());
         }
