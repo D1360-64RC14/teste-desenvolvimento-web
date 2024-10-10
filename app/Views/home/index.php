@@ -2,7 +2,7 @@
 
 <?= $this->section('body') ?>
 <div class="container" style="max-width: var(--bs-breakpoint-sm);">
-    <?= view('header') ?>
+    <?= view('header', ['action' => 'createPost']) ?>
 
     <main class="mt-3 vstack gap-2">
         <?php foreach ($postsWithUser as $postWithUser) : ?>
