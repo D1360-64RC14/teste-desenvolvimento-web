@@ -94,7 +94,7 @@ class Post extends BaseController
 
         $post = $postModel->where([
             'id' => $id,
-            'user' => $user['id'],
+            'user_id' => $user['id'],
         ])->first();
 
         if (! $post) {
@@ -128,7 +128,7 @@ class Post extends BaseController
         return view('redirect', ['url' => '/post/' . $id]);
     }
 
-    public function putPost()
+    public function putPost(int $id)
     {
         $session = session();
 
@@ -137,6 +137,24 @@ class Post extends BaseController
         }
 
         $data = $this->request->getPost(['title', 'body', 'imageUrl']);
+        $data['image_url'] = $data['imageUrl'];
+
+        $user = $session->get('user');
+        $postModel = model(PostModel::class);
+
+        $post = $postModel->where([
+            'id' => $id,
+            'user_id' => $user['id'],
+        ])->first();
+
+        if (! $post) {
+            return redirect()->to('/');
+        }
+
+        $data['user_id'] = $user['id'];
+        $postModel->update($id, $data);
+
+        return view('redirect', ['url' => '/post/' . $id]);
     }
 
     public function deletePost()
