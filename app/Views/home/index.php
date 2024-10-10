@@ -5,11 +5,11 @@
     <?= view('header') ?>
 
     <main class="mt-3 vstack gap-2">
-        <?php foreach ($posts as $post) : ?>
-            <?php if ($post['id'] === session('user')['id']) : ?>
-                <?= view('home/post_me', compact('post')) ?>
+        <?php foreach ($postsWithUser as $postWithUser) : ?>
+            <?php if ($postWithUser['user_id'] === $user['id']) : ?>
+                <?= view('home/post_me', compact('postWithUser')) ?>
             <?php else: ?>
-                <?= view('home/post_other', compact('post')) ?>
+                <?= view('home/post_other', compact('postWithUser')) ?>
             <?php endif; ?>
         <?php endforeach; ?>
     </main>

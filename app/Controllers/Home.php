@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use Config\Database;
 
 class Home extends BaseController
 {
@@ -14,21 +15,24 @@ class Home extends BaseController
             return redirect()->to('/login');
         }
 
-        $posts = [
-            [
-                'id' => 1,
-                'user' => 'admin',
-                'email' => '7w1tB@example.com',
-                'message' => 'Hello, World!',
-            ],
-            [
-                'id' => 2,
-                'user' => 'admin',
-                'email' => '7w1tB@example.com',
-                'message' => 'Hello, World!',
-            ],
-        ];
+        $db = Database::connect();
 
-        return view('home/index', compact('posts'));
+        $query = $db
+            ->table('post p')
+            ->select('
+                p.id AS id,
+                p.title AS title,
+                p.body AS body,
+                p.user_id AS user_id,
+                u.email AS email
+            ')
+            ->join('user u', 'u.id = p.user_id')
+            ->orderBy('p.id', 'desc')
+            ->get();
+
+        $postsWithUser = $query->getResultArray();
+        $user = $session->get('user');
+
+        return view('home/index', compact('postsWithUser', 'user'));
     }
 }

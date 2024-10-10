@@ -1,13 +1,16 @@
-<article class="card bg-tertiary" id="<?= esc('post-' . $post['id'], 'attr') ?>">
+<article
+    class="card"
+    id="<?= esc('post-' . $postWithUser['id'], 'attr') ?>"
+    style="background-color: var(--bs-tertiary-bg)">
     <div class="card-body">
         <h4 class="d-flex align-items-center">
-            <a class="h5 flex-grow-1" href="<?= esc('/post/' . $post['id'], 'attr') ?>">
-                <?= esc($post['title']) ?>
+            <a class="h5 flex-grow-1" href="<?= esc('/post/' . $postWithUser['id'], 'attr') ?>">
+                <?= esc($postWithUser['title']) ?>
             </a>
             <span class="h6 text-secondary ms-auto">
-                <?= esc($post['email']) ?>
+                <?= esc($postWithUser['email']) ?>
             </span>
         </h4>
-        <p><?= esc($post['body']) ?></p>
+        <p><?= esc($postWithUser['body']) ?></p>
     </div>
 </article>
