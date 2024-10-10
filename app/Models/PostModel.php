@@ -16,6 +16,7 @@ class PostModel extends Model
         'title',
         'body',
         'image_url',
+        'user_id',
     ];
 
     protected bool $allowEmptyInserts = false;
@@ -35,6 +36,7 @@ class PostModel extends Model
     protected $validationRules      = [
         'title' => 'required',
         'body' => 'required',
+        'user_id' => 'required',
     ];
     protected $validationMessages   = [
         'title' => [
@@ -42,6 +44,9 @@ class PostModel extends Model
         ],
         'body' => [
             'required' => 'O corpo do Post deve ser informado',
+        ],
+        'user_id' => [
+            'required' => 'O Usuário deve ser informado',
         ],
     ];
     protected $skipValidation       = false;
