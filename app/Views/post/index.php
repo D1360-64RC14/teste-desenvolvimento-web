@@ -2,13 +2,17 @@
 
 <?= $this->section('body') ?>
 <div class="container" style="max-width: var(--bs-breakpoint-sm);">
-    <?= view('header') ?>
+    <?php $editing = isset($post['id']) ?>
+
+    <?php if ($editing) : ?>
+        <?= view('header', ['backUrl' => '/post/' . $post['id']]) ?>
+    <?php else : ?>
+        <?= view('header') ?>
+    <?php endif; ?>
 
     <main class="mt-3">
         <div class="card">
             <div class="card-body">
-                <?php $editing = isset($post['id']) ?>
-
                 <?= $this->include('error_list') ?>
                 <?= $this->include('success_list') ?>
 
