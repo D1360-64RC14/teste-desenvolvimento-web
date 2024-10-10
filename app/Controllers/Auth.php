@@ -90,7 +90,6 @@ class Auth extends BaseController
             'password' => [
                 'required' => 'Informe sua senha',
                 'min_length' => 'A senha deve ter pelo menos 8 caracteres',
-                'max_length' => 'A senha deve ter no máximo 245 caracteres',
             ],
         ];
 
