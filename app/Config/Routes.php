@@ -27,6 +27,9 @@ $routes->get('/', [Home::class, 'index']);
 
 $routes->get('/post', [Post::class, 'index']);
 $routes->get('/post/(:num)', [Post::class, 'viewPost']);
+$routes->get('/post/(:num)/edit', [Post::class, 'viewEditPost']);
+$routes->get('/post/(:num)/delete', [Post::class, 'viewDeletePost']);
+
 $routes->post('/post', [Post::class, 'postPost']);
 $routes->put('/post/(:num)', [Post::class, 'putPost']);
 $routes->delete('/post/(:num)', [Post::class, 'deletePost']);

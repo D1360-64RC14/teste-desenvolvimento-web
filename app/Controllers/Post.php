@@ -45,14 +45,41 @@ class Post extends BaseController
             return redirect()->to('/');
         }
 
-        if ($post['user_id'] !== $user['id']) {
+        if ($post['user_id'] === $user['id']) {
             return view('post/post_me', compact('post', 'user'));
         }
 
         return view('post/post_other', compact('post', 'user'));
     }
 
-    public function editPost(int $id)
+    public function viewEditPost(int $id)
+    {
+        $session = session();
+
+        if (! $session->has('user')) {
+            return redirect()->to('/login');
+        }
+
+        helper('form');
+
+        $postModel = model(PostModel::class);
+        $user = $session->get('user');
+
+        $post = $postModel->where([
+            'id' => $id,
+            'user_id' => $user['id'],
+        ])->first();
+
+        if (! $post) {
+            return redirect()->to('/');
+        }
+
+        $post['imageUrl'] = $post['image_url'];
+
+        return view('post/index', compact('post'));
+    }
+
+    public function viewDeletePost(int $id)
     {
         $session = session();
 
@@ -74,7 +101,7 @@ class Post extends BaseController
             return redirect()->to('/');
         }
 
-        return view('post/index', compact('post'));
+        return view('post/delete', compact('post'));
     }
 
     public function postPost()
