@@ -37,7 +37,6 @@ class Post extends BaseController
             return redirect()->to('/login');
         }
 
-        $postModel = model(PostModel::class);
         $user = $session->get('user');
         $query = PostModel::baseQueryJoinUser()
             ->where('p.id', $id)
@@ -66,21 +65,21 @@ class Post extends BaseController
 
         helper('form');
 
-        $postModel = model(PostModel::class);
         $user = $session->get('user');
+        $query = PostModel::baseQueryJoinUser()
+            ->where('u.id', $user['id'])
+            ->where('p.id', $id)
+            ->get();
 
-        $post = $postModel->where([
-            'id' => $id,
-            'user_id' => $user['id'],
-        ])->first();
+        $postWithUser = $query->getRowArray();
 
-        if (! $post) {
+        if (! $postWithUser) {
             return redirect()->to('/');
         }
 
-        $post['imageUrl'] = $post['image_url'];
+        $postWithUser['imageUrl'] = $postWithUser['image_url'];
 
-        return view('post/index', compact('post'));
+        return view('post/index', compact('postWithUser'));
     }
 
     public function viewDeletePost(int $id)
@@ -94,18 +93,18 @@ class Post extends BaseController
         helper('form');
 
         $user = $session->get('user');
-        $postModel = model(PostModel::class);
+        $query = PostModel::baseQueryJoinUser()
+            ->where('u.id', $user['id'])
+            ->where('p.id', $id)
+            ->get();
 
-        $post = $postModel->where([
-            'id' => $id,
-            'user_id' => $user['id'],
-        ])->first();
+        $postWithUser = $query->getRowArray();
 
-        if (! $post) {
+        if (! $postWithUser) {
             return redirect()->to('/');
         }
 
-        return view('post/delete', compact('post', 'user'));
+        return view('post/delete', compact('postWithUser'));
     }
 
     public function postPost()
@@ -146,17 +145,22 @@ class Post extends BaseController
         $user = $session->get('user');
         $postModel = model(PostModel::class);
 
-        $post = $postModel->where([
-            'id' => $id,
-            'user_id' => $user['id'],
-        ])->first();
+        $query = PostModel::baseQueryJoinUser()
+            ->where('u.id', $user['id'])
+            ->where('p.id', $id)
+            ->get();
 
-        if (! $post) {
+        $postWithUser = $query->getRowArray();
+
+        if (! $postWithUser) {
             return redirect()->to('/');
         }
 
         $data['user_id'] = $user['id'];
-        $postModel->update($id, $data);
+
+        if (! $postModel->update($id, $data)) {
+            return redirect()->back()->withInput()->with('errors', $postModel->errors());
+        }
 
         return view('redirect', ['url' => '/post/' . $id]);
     }
@@ -172,12 +176,14 @@ class Post extends BaseController
         $user = $session->get('user');
         $postModel = model(PostModel::class);
 
-        $post = $postModel->where([
-            'id' => $id,
-            'user_id' => $user['id'],
-        ])->first();
+        $query = PostModel::baseQueryJoinUser()
+            ->where('u.id', $user['id'])
+            ->where('p.id', $id)
+            ->get();
 
-        if (! $post) {
+        $postWithUser = $query->getRowArray();
+
+        if (! $postWithUser) {
             return redirect()->to('/');
         }
 

@@ -16,12 +16,12 @@ class Home extends BaseController
             return redirect()->to('/login');
         }
 
+        $user = $session->get('user');
         $query = PostModel::baseQueryJoinUser()
             ->orderBy('p.id', 'desc')
             ->get();
 
         $postsWithUser = $query->getResultArray();
-        $user = $session->get('user');
 
         return view('home/index', compact('postsWithUser', 'user'));
     }
