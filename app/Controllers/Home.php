@@ -28,6 +28,7 @@ class Home extends BaseController
                 u.email AS email
             ')
             ->join('user u', 'u.id = p.user_id')
+            ->where('p.deleted_at IS NULL')
             ->orderBy('p.id', 'desc')
             ->get();
 

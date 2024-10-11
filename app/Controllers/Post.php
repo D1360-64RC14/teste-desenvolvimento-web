@@ -89,8 +89,8 @@ class Post extends BaseController
 
         helper('form');
 
-        $postModel = model(PostModel::class);
         $user = $session->get('user');
+        $postModel = model(PostModel::class);
 
         $post = $postModel->where([
             'id' => $id,
@@ -101,7 +101,7 @@ class Post extends BaseController
             return redirect()->to('/');
         }
 
-        return view('post/delete', compact('post'));
+        return view('post/delete', compact('post', 'user'));
     }
 
     public function postPost()
@@ -157,12 +157,28 @@ class Post extends BaseController
         return view('redirect', ['url' => '/post/' . $id]);
     }
 
-    public function deletePost()
+    public function deletePost(int $id)
     {
         $session = session();
 
         if (! $session->has('user')) {
             return redirect()->to('/login');
         }
+
+        $user = $session->get('user');
+        $postModel = model(PostModel::class);
+
+        $post = $postModel->where([
+            'id' => $id,
+            'user_id' => $user['id'],
+        ])->first();
+
+        if (! $post) {
+            return redirect()->to('/');
+        }
+
+        $postModel->delete($id);
+
+        return view('redirect', ['url' => '/']);
     }
 }
