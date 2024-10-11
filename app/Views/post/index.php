@@ -10,7 +10,7 @@
         <?= view('header') ?>
     <?php endif; ?>
 
-    <main class="mt-3">
+    <main class="mt-3 mb-5">
         <div class="card">
             <div class="card-body">
                 <?= $this->include('error_list') ?>

@@ -4,12 +4,18 @@
         id="<?= esc('post-' . $postWithUser['id'], 'attr') ?>"
         style="background-color: var(--bs-tertiary-bg)">
         <div class="card-body">
-            <h4 class="d-flex align-items-center">
+            <h4 class="d-md-none">
+                <span class="h5 d-block flex-grow-1 mb-0"><?= esc($postWithUser['title']) ?></span>
+                <span class="h6 text-secondary mb-0">
+                    <?= esc($postWithUser['user_email']) ?>
+                </span>
+            </h4>
+            <h4 class="d-none d-md-flex align-items-center">
                 <span class="h5 flex-grow-1 mb-0">
                     <?= esc($postWithUser['title']) ?>
                 </span>
                 <span class="h6 text-secondary ms-auto mb-0">
-                    <?= esc($postWithUser['email']) ?>
+                    <?= esc($postWithUser['user_email']) ?>
                 </span>
             </h4>
             <p><?= esc($postWithUser['body']) ?></p>

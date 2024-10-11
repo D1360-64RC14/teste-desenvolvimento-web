@@ -4,7 +4,7 @@
 <div class="container" style="max-width: var(--bs-breakpoint-sm);">
     <?= view('header', ['backUrl' => '/post/' . $post['id']]) ?>
 
-    <div class="card border-danger mt-3">
+    <main class="card border-danger mt-3">
         <div class="card-body">
             <p class="card-text">Tem certeza que deseja excluir este post?</p>
             <span class="row g-1">
@@ -19,20 +19,20 @@
                 </span>
             </span>
         </div>
-    </div>
+    </main>
 
     <div class="card mt-3" id="<?= esc('post-' . $post['id'], 'attr') ?>">
         <div class="card-body">
             <h4 class="d-md-none">
                 <span class="h5 d-block flex-grow-1 mb-0"><?= esc($post['title']) ?></span>
                 <span class="h6 text-secondary mb-0">
-                    <?= esc($user['email']) ?>
+                    <?= esc($user['user_email']) ?>
                 </span>
             </h4>
             <h4 class="d-none d-md-flex align-items-center">
                 <span class="h5 flex-grow-1 mb-0"><?= esc($post['title']) ?></span>
                 <span class="h6 text-secondary mb-0">
-                    <?= esc($user['email']) ?>
+                    <?= esc($user['user_email']) ?>
                 </span>
             </h4>
             <p><?= esc($post['body']) ?></p>

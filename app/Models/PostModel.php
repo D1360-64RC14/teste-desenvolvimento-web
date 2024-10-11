@@ -77,7 +77,8 @@ class PostModel extends Model
                 p.body AS body,
                 p.image_url AS image_url,
                 p.user_id AS user_id,
-                u.email AS email
+                u.name AS user_name,
+                u.email AS user_email
             ')
             ->join('user u', 'u.id = p.user_id')
             ->where('p.deleted_at IS NULL');

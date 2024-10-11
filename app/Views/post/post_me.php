@@ -4,12 +4,12 @@
 <div class="container" style="max-width: var(--bs-breakpoint-sm);">
     <?= view('header') ?>
 
-    <div class="card mt-3" id="<?= esc('post-' . $postWithUser['id'], 'attr') ?>">
+    <main class="card mt-3 mb-5" id="<?= esc('post-' . $postWithUser['id'], 'attr') ?>">
         <div class="card-body">
             <h4 class="d-flex align-items-center">
                 <span class="h5 flex-grow-1 mb-0"><?= esc($postWithUser['title']) ?></span>
                 <span class="h6 text-secondary mb-0">
-                    <?= esc($postWithUser['email']) ?>
+                    <?= esc($postWithUser['user_email']) ?>
                 </span>
                 <div class="dropdown text-secondary ms-1">
                     <button class="btn btn-sm dropdow-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -37,6 +37,6 @@
                 </div>
             <?php endif; ?>
         </div>
-    </div>
+    </main>
 </div>
 <?= $this->endSection() ?>
