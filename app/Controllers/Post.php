@@ -18,13 +18,13 @@ class Post extends BaseController
         helper('form');
 
         return view('post/index', [
-            'post' => [
+            'postWithUser' => [
                 'id' => null,
-                'user_id' => null,
                 'title' => null,
-                'email' => null,
                 'body' => null,
-                'imageUrl' => null
+                'imageUrl' => null,
+                'user_id' => null,
+                'user_email' => null,
             ]
         ]);
     }

@@ -2,10 +2,10 @@
 
 <?= $this->section('body') ?>
 <div class="container" style="max-width: var(--bs-breakpoint-sm);">
-    <?php $editing = isset($post['id']) ?>
+    <?php $editing = isset($postWithUser['id']) ?>
 
     <?php if ($editing) : ?>
-        <?= view('header', ['backUrl' => '/post/' . $post['id']]) ?>
+        <?= view('header', ['backUrl' => '/post/' . $postWithUser['id']]) ?>
     <?php else : ?>
         <?= view('header') ?>
     <?php endif; ?>
@@ -17,13 +17,13 @@
                 <?= $this->include('success_list') ?>
 
                 <form
-                    action="<?= $editing ? esc('/post/' . $post['id'], 'attr') : '/post' ?>"
+                    action="<?= $editing ? esc('/post/' . $postWithUser['id'], 'attr') : '/post' ?>"
                     method="post">
                     <?= csrf_field() ?>
 
                     <?php if ($editing) : ?>
                         <input type="hidden" name="_method" value="PUT">
-                        <input type="hidden" name="id" id="postId" value="<?= $post['id'] ?>">
+                        <input type="hidden" name="id" id="postId" value="<?= $postWithUser['id'] ?>">
                     <?php endif; ?>
 
                     <div class="vstack gap-2">
@@ -34,7 +34,8 @@
                                 name="title"
                                 id="postTitle"
                                 placeholder="Título"
-                                value="<?= set_value('title', $post['title']) ?>"
+                                value="<?= set_value('title', $postWithUser['title']) ?>"
+                                minlength="254"
                                 required
                                 autofocus>
                         </div>
@@ -44,7 +45,9 @@
                                 name="body"
                                 id="postContent"
                                 placeholder="Conteúdo"
-                                style="min-height: 25vh;"><?= set_value('body', $post['body']) ?></textarea>
+                                maxlength="254"
+                                required
+                                style="min-height: 25vh;"><?= set_value('body', $postWithUser['body']) ?></textarea>
                         </div>
                         <div>
                             <input
@@ -56,7 +59,7 @@
                                 minlength="3"
                                 maxlength="245"
                                 oninput="loadImagePreview(this.value)"
-                                value="<?= set_value('imageUrl', $post['imageUrl']) ?>">
+                                value="<?= set_value('imageUrl', $postWithUser['imageUrl']) ?>">
                             <div class="invalid-feedback">
                                 Link para a imagem inválido
                             </div>
