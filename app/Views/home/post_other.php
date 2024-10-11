@@ -2,10 +2,10 @@
     <article class="card" id="<?= esc('post-' . $postWithUser['id'], 'attr') ?>">
         <div class="card-body">
             <h4 class="d-flex align-items-center">
-                <span class="h5 flex-grow-1">
+                <span class="h5 flex-grow-1 mb-0">
                     <?= esc($postWithUser['title']) ?>
                 </span>
-                <span class="h6 text-secondary ms-auto">
+                <span class="h6 text-secondary ms-auto mb-0">
                     <?= esc($postWithUser['email']) ?>
                 </span>
             </h4>
