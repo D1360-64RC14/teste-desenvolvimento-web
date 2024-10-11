@@ -39,17 +39,21 @@ class Post extends BaseController
 
         $postModel = model(PostModel::class);
         $user = $session->get('user');
-        $post = $postModel->find($id);
+        $query = PostModel::baseQueryJoinUser()
+            ->where('p.id', $id)
+            ->get();
 
-        if (! $post) {
+        $postWithUser = $query->getRowArray();
+
+        if (! $postWithUser) {
             return redirect()->to('/');
         }
 
-        if ($post['user_id'] === $user['id']) {
-            return view('post/post_me', compact('post', 'user'));
+        if ($postWithUser['user_id'] === $user['id']) {
+            return view('post/post_me', compact('postWithUser'));
         }
 
-        return view('post/post_other', compact('post', 'user'));
+        return view('post/post_other', compact('postWithUser'));
     }
 
     public function viewEditPost(int $id)
