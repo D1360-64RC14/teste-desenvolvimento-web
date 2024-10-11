@@ -13,6 +13,12 @@
                 </span>
             </h4>
             <p><?= esc($postWithUser['body']) ?></p>
+
+            <?php if (!empty($postWithUser['image_url'])) : ?>
+                <div class="text-center">
+                    <img class="img-thumbnail" src="<?= esc($postWithUser['image_url'], 'attr') ?>">
+                </div>
+            <?php endif; ?>
         </div>
     </article>
 </a>

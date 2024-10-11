@@ -4,7 +4,7 @@
 <div class="container" style="max-width: var(--bs-breakpoint-sm);">
     <?= view('header', ['action' => 'createPost']) ?>
 
-    <main class="mt-3 vstack gap-2">
+    <main class="mt-3 vstack gap-2 mb-5">
         <?php foreach ($postsWithUser as $postWithUser) : ?>
             <?php if ($postWithUser['user_id'] === $user['id']) : ?>
                 <?= view('home/post_me', compact('postWithUser')) ?>
