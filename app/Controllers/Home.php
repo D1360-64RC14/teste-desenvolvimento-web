@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\PostModel;
 use Config\Database;
 
 class Home extends BaseController
@@ -15,20 +16,7 @@ class Home extends BaseController
             return redirect()->to('/login');
         }
 
-        $db = Database::connect();
-
-        $query = $db
-            ->table('post p')
-            ->select('
-                p.id AS id,
-                p.title AS title,
-                p.body AS body,
-                p.image_url AS image_url,
-                p.user_id AS user_id,
-                u.email AS email
-            ')
-            ->join('user u', 'u.id = p.user_id')
-            ->where('p.deleted_at IS NULL')
+        $query = PostModel::baseQueryJoinUser()
             ->orderBy('p.id', 'desc')
             ->get();
 

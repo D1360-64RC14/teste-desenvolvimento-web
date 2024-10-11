@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use Config\Database;
 
 class PostModel extends Model
 {
@@ -63,4 +64,22 @@ class PostModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public static function baseQueryJoinUser()
+    {
+        $db = Database::connect();
+
+        return $db
+            ->table('post p')
+            ->select('
+                p.id AS id,
+                p.title AS title,
+                p.body AS body,
+                p.image_url AS image_url,
+                p.user_id AS user_id,
+                u.email AS email
+            ')
+            ->join('user u', 'u.id = p.user_id')
+            ->where('p.deleted_at IS NULL');
+    }
 }
