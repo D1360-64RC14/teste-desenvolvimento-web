@@ -48,11 +48,7 @@ class Post extends BaseController
             return redirect()->to('/');
         }
 
-        if ($postWithUser['user_id'] === $user['id']) {
-            return view('post/post_me', compact('postWithUser'));
-        }
-
-        return view('post/post_other', compact('postWithUser'));
+        return view('post/index', compact('postWithUser', 'user'));
     }
 
     public function viewEditPost(int $id)
@@ -79,7 +75,7 @@ class Post extends BaseController
 
         $postWithUser['imageUrl'] = $postWithUser['image_url'];
 
-        return view('post/index', compact('postWithUser'));
+        return view('post/editable', compact('postWithUser'));
     }
 
     public function viewDeletePost(int $id)
