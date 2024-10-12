@@ -35,7 +35,7 @@
                                 id="postTitle"
                                 placeholder="Título"
                                 value="<?= set_value('title', $postWithUser['title']) ?>"
-                                minlength="254"
+                                maxlength="254"
                                 required
                                 autofocus>
                         </div>
