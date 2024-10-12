@@ -41,8 +41,8 @@ class CreateRecoverAttemptTable extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
+        $this->forge->addForeignKey('user_id', 'user', 'id', 'RESTRICT', 'RESTRICT');
         $this->forge->createTable('recover_attempt');
-        $this->forge->addForeignKey('user_id', 'user', 'id');
     }
 
     public function down()

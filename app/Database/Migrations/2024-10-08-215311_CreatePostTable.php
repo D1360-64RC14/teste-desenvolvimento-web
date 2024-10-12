@@ -47,8 +47,8 @@ class CreatePostTable extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
+        $this->forge->addForeignKey('user_id', 'user', 'id', 'RESTRICT', 'RESTRICT');
         $this->forge->createTable('post');
-        $this->forge->addForeignKey('user_id', 'user', 'id');
     }
 
     public function down()
