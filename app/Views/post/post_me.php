@@ -29,7 +29,7 @@
                     </ul>
                 </div>
             </h4>
-            <p><?= esc($postWithUser['body']) ?></p>
+            <p style="white-space: pre-wrap;"><?= esc($postWithUser['body']) ?></p>
 
             <?php if (!empty($postWithUser['image_url'])) : ?>
                 <div class="text-center">
