@@ -77,3 +77,94 @@ Este teste tem como objetivo avaliar seus conhecimentos. Fique tranquilo, caso n
 Primeiramente, você pode fazer um fork desse repositório aqui, para sua conta do Github, depois disso crie uma branch nova com o seu nome (ex: nome_sobrenome), para podermos indentificá-lo.
 
 Após terminar o desafio, você pode solicitar um pull request para a branch master do nosso repositório. Vamos receber e fazer a avaliação de todos.
+
+---
+
+## Sobre o Projeto
+
+Este teste foi uma excelente trajetória para a expansão do meu ferramental de
+conhecimento, principalmente numa linguagem que nunca me aventurei antes.
+
+Já possuia experiência prévia em Bootstrap, MySQL, Docker e desenvolvimento Web
+em geral, porém o CodeIgniter foi um desafio interessante.
+
+Meu maior contato com desenvolvimento PHP foi durantes aulas na faculdade com o
+Professor Diogo Muneratto, principalmente com Laravel.
+
+### Setup
+
+Feramentas usadas durante o desenvolvimento:
+
+- `PHP 8.3.12`;
+- `Composer 2.7.7`;
+- `MariaDB 11.5.2`;
+- `CodeIgniter 4.5.5`;
+- `Docker 26.1.5-ce` (para desenvolvimento local).
+
+Requerimentos:
+
+- `PHP >= 8.4.12`;
+- `Composer >= 2.7.7`;
+- `MySQL-compatible database`.
+
+#### Configuração
+
+##### Banco de Dados
+
+Configurar no `.env` variáveis relacionadas a conexão com a base de dados.
+
+Exemplo:
+```toml
+database.default.hostname = localhost
+database.default.database = ci4
+database.default.username = root
+database.default.password = root
+database.default.DBDriver = MySQLi
+database.default.port = 3306
+```
+
+##### Recuperação de Senha
+
+Configurar no `.env` variáveis relacionadas a configuração da recuperação de senha.
+
+Exemplo:
+```toml
+# Quantidade máxima de tentativas até o sistema
+# ignorar novas tentativas de recuperação de senha.
+# (opcional; padrão 20)
+app.user.recovery.maxAttempts = 20
+
+# Tempo de expiração padrão para os códigos de
+# recuperação de senha.
+# (opcional; padrão '+30 min')
+app.user.recovery.codeExpiration = '+30 min'
+```
+
+##### Envio de Email
+
+Configurar no `.env` variáveis relacionadas a configuração do SMTP para envio
+de emails.
+
+> Durante o desenvolvimento foi utilizado o serviço [ethereal.email](https://ethereal.email)
+> para testes de envio de email pelo serviço de recuperação de senha.
+
+Exemplo:
+```toml
+mail.sender.fromEmail = hostmaster@postage.com
+mail.sender.fromName = 'HostMaster'
+mail.protocol = smtp
+mail.smtp.host = smtp.example.com
+mail.smtp.user = username
+mail.smtp.pass = password
+mail.smtp.port = 587
+```
+
+#### Preparação do Ambiente
+
+1. `composer install` para instalar as dependências do framework;
+2. `php spark migrate` para aplicar as migrações na base de dados.
+
+### Preview
+
+É possível previsualizar o projeto rodando o servidor local do CodeIgniter, com
+`php spark serve`.
