@@ -114,7 +114,7 @@ Requerimentos:
 Configurar no `.env` variáveis relacionadas a conexão com a base de dados.
 
 Exemplo:
-```toml
+```properties
 database.default.hostname = localhost
 database.default.database = ci4
 database.default.username = root
@@ -128,7 +128,7 @@ database.default.port = 3306
 Configurar no `.env` variáveis relacionadas a configuração da recuperação de senha.
 
 Exemplo:
-```toml
+```properties
 # Quantidade máxima de tentativas até o sistema
 # ignorar novas tentativas de recuperação de senha.
 # (opcional; padrão 20)
@@ -149,7 +149,7 @@ de emails.
 > para testes de envio de email pelo serviço de recuperação de senha.
 
 Exemplo:
-```toml
+```properties
 mail.sender.fromEmail = hostmaster@postage.com
 mail.sender.fromName = 'HostMaster'
 mail.protocol = smtp
